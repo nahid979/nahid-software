@@ -1,0 +1,44 @@
+
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+int main() {
+
+    map<pair<char, char>, char> dfa;
+
+
+    dfa[{'A','a'}] = 'B';  dfa[{'A','b'}] = 'C';
+    dfa[{'B','a'}] = 'D';  dfa[{'B','b'}] = 'E';
+    dfa[{'C','a'}] = 'F';  dfa[{'C','b'}] = 'H';
+    dfa[{'D','a'}] = 'G';  dfa[{'D','b'}] = 'H';
+    dfa[{'E','a'}] = 'I';  dfa[{'E','b'}] = 'J';
+    dfa[{'F','a'}] = 'B';  dfa[{'F','b'}] = 'E';
+    dfa[{'G','a'}] = 'D';  dfa[{'G','b'}] = 'E';
+    dfa[{'H','a'}] = 'D';  dfa[{'H','b'}] = 'H';
+    dfa[{'I','a'}] = 'G';  dfa[{'I','b'}] = 'H';
+    dfa[{'J','a'}] = 'B';  dfa[{'J','b'}] = 'J';
+
+    string input;
+    cout << "Enter input string): ";
+    cin >> input;
+
+    char currentState = 'A';
+
+    for(char ch : input) {
+        if(ch != 'a' && ch != 'b') {
+            cout << "Invalid symbol! DFA works only for a and b.\n";
+            return 0;
+        }
+        currentState = dfa[{currentState, ch}];
+    }
+
+
+    if(currentState == 'J')
+        cout << "String ACCEPTED by DFA\n";
+    else
+        cout << "String REJECTED by DFA\n";
+
+    return 0;
+}
